@@ -632,3 +632,36 @@ a {
 .letter-spacing {
   letter-spacing: .2rem;
   color: rgba(255, 255, 255, 0.5) !important; }
+
+  /* Skills Table Styling */
+.skills-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+.skills-table th,
+.skills-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
+
+.skills-table th {
+  background-color: #444;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.skills-table tr:hover {
+  background-color: #3d3d3d;
+}
+
+.skill-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
