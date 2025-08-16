@@ -3,10 +3,17 @@
       <h3 class="sitename">Raihan Elsar</h3>
       <!-- <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p> -->
       <div class="social-links d-flex justify-content-center">
+<<<<<<< HEAD
         <a href="https://github.com/raihanelsar"><i class="bi bi-github"></i></a>
         <a href=""><i class="bi bi-facebook"></i></a>
         <a href=""><i class="bi bi-instagram"></i></a>
         <a href="www.linkedin.com/in/raihan-elsar-a315b9334"><i class="bi bi-linkedin"></i></a>
+=======
+        <a href=""><i class="bi bi-github"></i></a>
+        <a href=""><i class="bi bi-facebook"></i></a>
+        <a href=""><i class="bi bi-instagram"></i></a>
+        <a href=""><i class="bi bi-linkedin"></i></a>
+>>>>>>> a7ac288b6045e9237d239f79c1820da2442f93ec
       </div>
       <div class="container">
         <div class="copyright">
