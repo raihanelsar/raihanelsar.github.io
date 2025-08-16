@@ -40,11 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-<<<<<<< HEAD
   <link href="../assets/img/favicon.ico" rel="icon">
-=======
+
   <link href="assets/img/favicon.png" rel="icon">
->>>>>>> a7ac288b6045e9237d239f79c1820da2442f93ec
+
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
