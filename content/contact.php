@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 $data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM contact LIMIT 1"));
 ?>
 
@@ -94,4 +93,3 @@ $data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM contact ORDER B
 <?php else: ?>
     <p>No contact data available.</p>
 <?php endif; ?>
->>>>>>> a7ac288b6045e9237d239f79c1820da2442f93ec

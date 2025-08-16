@@ -9,17 +9,16 @@
             <h2>Raihan Elsar</h2>
             <p>I'm <span class="typed" data-typed-items="Developer, Photographer">Developer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
             <div class="social-links">
-<<<<<<< HEAD
+
               <a href="https://github.com/raihanelsar"><i class="bi bi-github"></i></a>
               <a href="#"><i class="bi bi-facebook"></i></a>
               <a href="#"><i class="bi bi-instagram"></i></a>
-              <a href="www.linkedin.com/in/raihan-elsar-a315b9334"><i class="bi bi-linkedin"></i></a>
-=======
+              <a href="https://linkedin.com/in/raihan-elsar-a315b9334"><i class="bi bi-linkedin"></i></a>
               <a href="#"><i class="bi bi-github"></i></a>
               <a href="#"><i class="bi bi-facebook"></i></a>
               <a href="#"><i class="bi bi-instagram"></i></a>
               <a href="#"><i class="bi bi-linkedin"></i></a>
->>>>>>> a7ac288b6045e9237d239f79c1820da2442f93ec
+
             </div>
           </div>
         </div>
