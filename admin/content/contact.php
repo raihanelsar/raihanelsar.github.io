@@ -68,7 +68,8 @@ $data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM contact LIMIT 1
 
     <div class="col-12">
       <button type="submit" class="btn btn-primary">Save Contact</button>
-      <a href="?page=contact" class="btn btn-secondary">⬅ Back</a>
+      <a onclick="return confirm('Apakah Anda yakin akan menghapus data ini?')"
+                        href="?page=tambah-contact&delete=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger">Delete</a>
     </div>
   </form>
 

@@ -1,6 +1,4 @@
 <?php
-include 'koneksi.php';
-
 // Ambil data kontak (hanya 1 record terakhir)
 $data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM contact ORDER BY id DESC LIMIT 1"));
 ?>
