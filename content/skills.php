@@ -59,7 +59,7 @@ function getBarColor($cat, $subcat = '') {
 
   <div class="container" data-aos="fade-up" data-aos-delay="100">
     <?php if (empty($categories)): ?>
-      <p class="text-muted">Belum ada data skills yang ditambahkan.</p>
+      <p class="text-muted">No skills data has been added yet.</p>
     <?php else: ?>
       <?php foreach ($categories as $cat => $skillGroup): ?>
         <h4 class="mt-4"><?= htmlspecialchars($cat) ?></h4>

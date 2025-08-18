@@ -69,6 +69,7 @@ $portfolio = mysqli_query($koneksi, "SELECT * FROM portfolio ORDER BY id DESC");
                     <th style="width:80px">Gambar</th>
                     <th>Judul</th>
                     <th>Kategori</th>
+                    <th>Tags</th>
                     <th>Link</th>
                     <th style="width:200px">Aksi</th>
                 </tr>
@@ -90,6 +91,15 @@ $portfolio = mysqli_query($koneksi, "SELECT * FROM portfolio ORDER BY id DESC");
                     </td>
                     <td><?= htmlspecialchars($row['title']) ?></td>
                     <td><?= htmlspecialchars($row['category']) ?></td>
+                    <td>
+                        <?php if (!empty($row['tags'])): ?>
+                            <?php foreach (explode(',', $row['tags']) as $tag): ?>
+                                <span class="badge bg-info text-dark"><?= htmlspecialchars(trim($tag)) ?></span>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <span class="text-muted">-</span>
+                        <?php endif; ?>
+                    </td>
                     <td class="text-center">
                         <?php if (!empty($row['link'])): ?>
                             <a href="<?= htmlspecialchars($row['link']) ?>" target="_blank" class="btn btn-outline-primary btn-sm">🔗 Lihat</a>
@@ -107,7 +117,7 @@ $portfolio = mysqli_query($koneksi, "SELECT * FROM portfolio ORDER BY id DESC");
             <?php endwhile; 
             else: ?>
                 <tr>
-                    <td colspan="6" class="text-center text-muted">Belum ada data portfolio</td>
+                    <td colspan="7" class="text-center text-muted">Belum ada data portfolio</td>
                 </tr>
             <?php endif; ?>
             </tbody>

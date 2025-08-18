@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title       = mysqli_real_escape_string($koneksi, trim($_POST['title']));
     $description = mysqli_real_escape_string($koneksi, trim($_POST['description']));
     $link        = mysqli_real_escape_string($koneksi, trim($_POST['link']));
+    $tags        = mysqli_real_escape_string($koneksi, trim($_POST['tags']));
 
     $img = null;
 
@@ -40,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Simpan ke database
     if ($img) {
-        $sql = "INSERT INTO portfolio (category, title, description, image, link) 
-                VALUES ('$category', '$title', '$description', '$img', '$link')";
+        $sql = "INSERT INTO portfolio (category, title, description, image, link, tags) 
+                VALUES ('$category', '$title', '$description', '$img', '$link', '$tags')";
         if (mysqli_query($koneksi, $sql)) {
             $msg = "✅ Portfolio berhasil ditambahkan!";
         } else {
@@ -94,6 +95,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="col-md-6">
             <label class="form-label">Link Eksternal (opsional)</label>
             <input type="url" name="link" class="form-control" placeholder="https://...">
+        </div>
+
+        <div class="col-md-12">
+            <label class="form-label">Tags</label>
+            <input type="text" name="tags" class="form-control" placeholder="Contoh: php, javascript, uiux">
+            <div class="form-text">Pisahkan dengan koma (,)</div>
         </div>
 
         <div class="col-12">
