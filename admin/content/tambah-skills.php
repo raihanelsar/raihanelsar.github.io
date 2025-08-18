@@ -7,16 +7,18 @@ $editData = null;
 // ===== CREATE =====
 if (isset($_POST['add'])) {
     $name = trim($_POST['name']);
+    $category = trim($_POST['category']);
+    $subcategory = isset($_POST['subcategory']) ? trim($_POST['subcategory']) : '';
     $perc = filter_var($_POST['percentage'], FILTER_VALIDATE_INT, [
         'options' => ['min_range' => 0, 'max_range' => 100]
     ]);
 
-    if ($name !== '' && $perc !== false) {
-        $stmt = $koneksi->prepare("INSERT INTO skills (name, percentage) VALUES (?, ?)");
-        $stmt->bind_param("si", $name, $perc);
+    if ($name !== '' && $category !== '' && $perc !== false) {
+        $stmt = $koneksi->prepare("INSERT INTO skills (name, category, subcategory, percentage) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("sssi", $name, $category, $subcategory, $perc);
         $stmt->execute();
         $stmt->close();
-        header("Location: ?page=skills&tambah=berhasil");
+        header("Location: ?page=skills&msg=tambah-berhasil");
         exit;
     } else {
         $msg = "Input tidak valid!";
@@ -27,32 +29,21 @@ if (isset($_POST['add'])) {
 if (isset($_POST['update'])) {
     $id = intval($_POST['id']);
     $name = trim($_POST['name']);
+    $category = trim($_POST['category']);
+    $subcategory = isset($_POST['subcategory']) ? trim($_POST['subcategory']) : '';
     $perc = filter_var($_POST['percentage'], FILTER_VALIDATE_INT, [
         'options' => ['min_range' => 0, 'max_range' => 100]
     ]);
 
-    if ($id > 0 && $name !== '' && $perc !== false) {
-        $stmt = $koneksi->prepare("UPDATE skills SET name=?, percentage=? WHERE id=?");
-        $stmt->bind_param("sii", $name, $perc, $id);
+    if ($id > 0 && $name !== '' && $category !== '' && $perc !== false) {
+        $stmt = $koneksi->prepare("UPDATE skills SET name=?, category=?, subcategory=?, percentage=? WHERE id=?");
+        $stmt->bind_param("sssii", $name, $category, $subcategory, $perc, $id);
         $stmt->execute();
         $stmt->close();
-        header("Location: ?page=skills&ubah=berhasil");
+        header("Location: ?page=skills&msg=ubah-berhasil");
         exit;
     } else {
         $msg = "Input tidak valid!";
-    }
-}
-
-// ===== DELETE =====
-if (isset($_GET['del'])) {
-    $id = intval($_GET['del']);
-    if ($id > 0) {
-        $stmt = $koneksi->prepare("DELETE FROM skills WHERE id=?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->close();
-        header("Location: ?page=skills&hapus=berhasil");
-        exit;
     }
 }
 
@@ -86,15 +77,35 @@ if (isset($_GET['edit'])) {
             <input type="hidden" name="id" value="<?= intval($editData['id']) ?>">
         <?php endif; ?>
 
-        <div class="col-md-5">
+        <div class="col-md-4">
             <input type="text" name="name" placeholder="Skill Name" class="form-control"
                    value="<?= $editData ? htmlspecialchars($editData['name']) : '' ?>" required>
         </div>
+
         <div class="col-md-3">
+            <select name="category" id="category" class="form-control" required onchange="toggleSubcategory(this.value)">
+                <option value="">-- Select Category --</option>
+                <option value="Programming" <?= ($editData && $editData['category']=="Programming") ? "selected" : "" ?>>Programming</option>
+                <option value="Design" <?= ($editData && $editData['category']=="Design") ? "selected" : "" ?>>Design</option>
+                <option value="Tools" <?= ($editData && $editData['category']=="Tools") ? "selected" : "" ?>>Tools</option>
+                <option value="Soft Skills" <?= ($editData && $editData['category']=="Soft Skills") ? "selected" : "" ?>>Soft Skills</option>
+            </select>
+        </div>
+
+        <div class="col-md-3" id="subcategory-wrapper" style="display:none;">
+            <select name="subcategory" id="subcategory" class="form-control">
+                <option value="">-- Select Subcategory --</option>
+                <option value="Front-End" <?= ($editData && $editData['subcategory']=="Front-End") ? "selected" : "" ?>>Front-End</option>
+                <option value="Back-End" <?= ($editData && $editData['subcategory']=="Back-End") ? "selected" : "" ?>>Back-End</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
             <input type="number" name="percentage" min="0" max="100" placeholder="%" class="form-control"
                    value="<?= $editData ? intval($editData['percentage']) : '' ?>" required>
         </div>
-        <div class="col-md-4">
+
+        <div class="col-md-3">
             <?php if ($editData): ?>
                 <button type="submit" name="update" class="btn btn-warning">Update Skill</button>
                 <a href="?page=skills" class="btn btn-secondary">Cancel</a>
@@ -104,6 +115,23 @@ if (isset($_GET['edit'])) {
             <?php endif; ?>
         </div>
     </form>
+
+    <script>
+    function toggleSubcategory(category) {
+        const wrapper = document.getElementById('subcategory-wrapper');
+        if (category === 'Programming') {
+            wrapper.style.display = 'block';
+        } else {
+            wrapper.style.display = 'none';
+            document.getElementById('subcategory').value = '';
+        }
+    }
+
+    // jalankan saat halaman dibuka (edit mode)
+    document.addEventListener("DOMContentLoaded", function(){
+        toggleSubcategory(document.getElementById('category').value);
+    });
+    </script>
 </div>
 </body>
 </html>

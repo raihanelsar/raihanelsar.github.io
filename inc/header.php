@@ -1,16 +1,34 @@
 <header id="header" class="header d-flex flex-column justify-content-center">
+  <i class="header-toggle d-xl-none bi bi-list"></i>
 
-    <i class="header-toggle d-xl-none bi bi-list"></i>
+  <nav id="navmenu" class="navmenu">
+    <ul>
+      <?php 
+      // Ambil page dari GET, default home
+      $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
-    <nav id="navmenu" class="navmenu">
-      <ul>
-        <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i><span>Home</span></a></li>
-        <li><a href="#about"><i class="bi bi-person navicon"></i><span>About</span></a></li>
-        <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i><span>Resume</span></a></li>
-        <li><a href="#portfolio"><i class="bi bi-images navicon"></i><span>Portfolio</span></a></li>
-        <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i><span>Services</span></a></li>
-        <li><a href="#contact"><i class="bi bi-envelope navicon"></i><span>Contact</span></a></li>
-      </ul>
-    </nav>
+      // Daftar menu
+      $menus = [
+        "home"      => ["icon" => "bi bi-house", "label" => "Home"],
+        "about"     => ["icon" => "bi bi-person", "label" => "About"],
+        "resume"    => ["icon" => "bi bi-file-earmark-text", "label" => "Resume"],
+        "portfolio" => ["icon" => "bi bi-images", "label" => "Portfolio"],
+        "services"  => ["icon" => "bi bi-hdd-stack", "label" => "Services"],
+        "contact"   => ["icon" => "bi bi-envelope", "label" => "Contact"],
+      ];
 
-  </header>
+      // Loop menu
+      foreach ($menus as $key => $menu) {
+          $active = ($page == $key) ? "active" : "";
+          echo '
+          <li>
+            <a href="?page='.$key.'" class="'.$active.'">
+              <i class="'.$menu['icon'].' navicon"></i>
+              <span>'.$menu['label'].'</span>
+            </a>
+          </li>';
+      }
+      ?>
+    </ul>
+  </nav>
+</header>

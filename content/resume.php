@@ -1,5 +1,4 @@
 <?php
-$summaryQ = mysqli_query($koneksi, "SELECT * FROM resume WHERE section_type='summary' ORDER BY id ASC");
 $educationQ = mysqli_query($koneksi, "SELECT * FROM resume WHERE section_type='education' ORDER BY id ASC");
 $organizationQ = mysqli_query($koneksi, "SELECT * FROM resume WHERE section_type='organization' ORDER BY id ASC");
 $experienceQ = mysqli_query($koneksi, "SELECT * FROM resume WHERE section_type='experience' ORDER BY id ASC");
@@ -19,8 +18,8 @@ $experienceQ = mysqli_query($koneksi, "SELECT * FROM resume WHERE section_type='
             <h5><?= htmlspecialchars(trim(($r['year_start'] ?? '') . ' - ' . ($r['year_end'] ?? ''))) ?></h5>
             <p><em><?= htmlspecialchars($r['subtitle'] ?? '') ?></em></p>
             <p><?= nl2br(htmlspecialchars($r['description'] ?? '')) ?></p>
-            <?php if (!empty($r['link_url']) && !empty($r['link_title'])): ?>
-              <a href="<?= htmlspecialchars($r['link_url']) ?>" target="_blank" rel="noopener"><?= htmlspecialchars($r['link_title']) ?></a>
+            <?php if (!empty($r['link']) && !empty($r['link'])): ?>
+              <a href="<?= htmlspecialchars($r['link']) ?>" target="_blank" rel="noopener"><?= htmlspecialchars($r['link']) ?></a>
             <?php endif; ?>
           </div>
         <?php endwhile; ?>
@@ -33,8 +32,8 @@ $experienceQ = mysqli_query($koneksi, "SELECT * FROM resume WHERE section_type='
             <h4><?= htmlspecialchars($r['title']) ?></h4>
             <h5><?= htmlspecialchars(trim(($r['year_start'] ?? '') . ' - ' . ($r['year_end'] ?? ''))) ?></h5>
             <p><?= nl2br(htmlspecialchars($r['description'] ?? '')) ?></p>
-            <?php if (!empty($r['link_url']) && !empty($r['link_title'])): ?>
-              <a href="<?= htmlspecialchars($r['link_url']) ?>" target="_blank" rel="noopener"><?= htmlspecialchars($r['link_title']) ?></a>
+            <?php if (!empty($r['link']) && !empty($r['link'])): ?>
+              <a href="<?= htmlspecialchars($r['linkl']) ?>" target="_blank" rel="noopener"><?= htmlspecialchars($r['link']) ?></a>
             <?php endif; ?>
           </div>
         <?php endwhile; ?>
@@ -48,8 +47,8 @@ $experienceQ = mysqli_query($koneksi, "SELECT * FROM resume WHERE section_type='
             <ul>
               <li><?= nl2br(htmlspecialchars($r['description'] ?? '')) ?></li>
             </ul>
-            <?php if (!empty($r['link_url']) && !empty($r['link_title'])): ?>
-              <a href="<?= htmlspecialchars($r['link_url']) ?>" target="_blank" rel="noopener"><?= htmlspecialchars($r['link_title']) ?></a>
+            <?php if (!empty($r['link']) && !empty($r['link'])): ?>
+              <a href="<?= htmlspecialchars($r['link']) ?>" target="_blank" rel="noopener"><?= htmlspecialchars($r['link']) ?></a>
             <?php endif; ?>
           </div>
         <?php endwhile; ?>

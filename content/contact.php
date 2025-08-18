@@ -1,12 +1,37 @@
 <?php
 $data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM contact LIMIT 1"));
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name    = htmlspecialchars($_POST['name']);
+    $email   = htmlspecialchars($_POST['email']);
+    $subject = htmlspecialchars($_POST['subject']);
+    $message = htmlspecialchars($_POST['message']);
+
+    // Ganti dengan email tujuan kamu
+    $to = "raihan.elsar25@gmail.com";
+
+    $headers  = "From: " . $name . " <" . $email . ">\r\n";
+    $headers .= "Reply-To: " . $email . "\r\n";
+    $headers .= "Content-type: text/plain; charset=UTF-8\r\n";
+
+    $body  = "Name: $name\n";
+    $body .= "Email: $email\n";
+    $body .= "Subject: $subject\n\n";
+    $body .= "Message:\n$message\n";
+
+    if (mail($to, $subject, $body, $headers)) {
+        echo "Pesan berhasil dikirim. Terima kasih, $name!";
+    } else {
+        echo "Oops! Pesan gagal dikirim.";
+    }
+}
 ?>
 
 <section id="contact" class="contact section">
   <div class="container">
     <div class="section-title text-center">
       <h2>Contact</h2>
-      <p>Silakan hubungi kami melalui informasi di bawah ini atau kirim pesan langsung.</p>
+      <p>Please contact us using the information below or send us a direct message.</p>
     </div>
 
     <div class="row gy-4">

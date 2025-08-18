@@ -6,20 +6,20 @@ if (isset($_GET['msg'])) {
     $msg = $_GET['msg'];
 }
 
-// Hapus data
-if (isset($_GET['del'])) {
-    $id = intval($_GET['del']);
+// ===== DELETE =====
+if (isset($_GET['delete'])) {
+    $id = intval($_GET['delete']);
     if ($id > 0) {
         $stmt = $koneksi->prepare("DELETE FROM skills WHERE id=?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $stmt->close();
-        header("Location: ?page=skills&hapus=berhasil");
+        header("Location: ?page=skills&msg=hapus-berhasil");
         exit;
     }
 }
 
-// Ambil semua data skills
+// ===== GET ALL SKILLS =====
 $skills = mysqli_query($koneksi, "SELECT * FROM skills ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
@@ -43,6 +43,8 @@ $skills = mysqli_query($koneksi, "SELECT * FROM skills ORDER BY id DESC");
         <thead>
         <tr>
             <th>Name</th>
+            <th>Category</th>
+            <th>Subcategory</th>
             <th>%</th>
             <th>Action</th>
         </tr>
@@ -51,6 +53,10 @@ $skills = mysqli_query($koneksi, "SELECT * FROM skills ORDER BY id DESC");
         <?php while ($row = mysqli_fetch_assoc($skills)): ?>
             <tr>
                 <td><?= htmlspecialchars($row['name']) ?></td>
+                <td><?= htmlspecialchars($row['category']) ?></td>
+                <td>
+                    <?= !empty($row['subcategory']) ? htmlspecialchars($row['subcategory']) : '-' ?>
+                </td>
                 <td><?= intval($row['percentage']) ?>%</td>
                 <td>
                     <a href="?page=tambah-skills&edit=<?= intval($row['id']) ?>" class="btn btn-sm btn-success">Edit</a>

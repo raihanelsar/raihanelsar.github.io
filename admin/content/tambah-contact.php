@@ -67,7 +67,7 @@ $contact = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM contact LIMI
 
     <div class="col-12">
       <button type="submit" class="btn btn-primary">Save</button>
-      <a href="contact.php" class="btn btn-secondary">Back</a>
+      <a href="?page=contact" class="btn btn-secondary">Back</a>
     </div>
   </form>
 

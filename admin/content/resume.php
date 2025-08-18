@@ -36,6 +36,8 @@ $rows = mysqli_query($koneksi, "SELECT * FROM resume ORDER BY id DESC");
     <th>Title</th>
     <th>Subtitle</th>
     <th>Years</th>
+    <th>Description</th>
+    <th>Link</th>
     <th>Action</th>
 </tr>
 </thead>
@@ -47,6 +49,8 @@ $rows = mysqli_query($koneksi, "SELECT * FROM resume ORDER BY id DESC");
     <td><?= htmlspecialchars($r['title']) ?></td>
     <td><?= htmlspecialchars($r['subtitle']) ?></td>
     <td><?= htmlspecialchars($r['year_start'] . ' - ' . $r['year_end']) ?></td>
+    <td><?= htmlspecialchars($r['description']) ?></td>
+    <td><?= htmlspecialchars($r['link']) ?></td>
     <td>
         <a class="btn btn-sm btn-warning" href="?page=tambah-resume&edit=<?= $r['id'] ?>">Edit</a>
         <a class="btn btn-sm btn-danger" href="?page=resume&delete=<?= $r['id'] ?>" onclick="return confirm('Delete this item?')">Delete</a>

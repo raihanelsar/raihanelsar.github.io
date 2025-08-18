@@ -30,14 +30,14 @@ $data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM contact LIMIT 1
       </div>
     <?php endif; ?>
 
-    <a href="tambah-contact.php?id=<?= $data['id'] ?>" class="btn btn-warning mt-3">Edit Contact</a>
+    <a href="?page=tambah-contact&edit=<?= $data['id'] ?>" class="btn btn-success mt-3">Edit Contact</a>
     <a onclick="return confirm('Apakah Anda yakin akan menghapus data ini?')" 
-       href="tambah-contact.php?delete=<?= $data['id'] ?>" 
+       href="?page=tambah-contact&delete=<?= $data['id'] ?>" 
        class="btn btn-danger mt-3">Delete</a>
 
   <?php else: ?>
     <p>No contact info yet.</p>
-    <a href="tambah-contact.php" class="btn btn-primary">Add Contact</a>
+    <a href="?page=tambah-contact" class="btn btn-primary">Add Contact</a>
   <?php endif; ?>
 
 </div>

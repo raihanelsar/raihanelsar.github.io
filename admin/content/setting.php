@@ -46,8 +46,8 @@ if (isset($_POST['simpan'])) {
   } else {
     //insert
     $insert = mysqli_query($koneksi, "INSERT INTO settings 
-    (email, phone, address, twitter, fb, ig, linkedin) 
-    VALUES ('$email', '$phone', '$address', '$twitter', '$fb', '$ig', '$linkedin')");
+    (email, phone, address, logo, twitter, fb, ig, linkedin) 
+    VALUES ('$email', '$phone', '$address', '$logo_name',  '$twitter', '$fb', '$ig', '$linkedin')");
     if ($insert) {
       header("location:?page=setting&tambah=berhasil");
     }

@@ -12,12 +12,8 @@
 
               <a href="https://github.com/raihanelsar"><i class="bi bi-github"></i></a>
               <a href="#"><i class="bi bi-facebook"></i></a>
-              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="https://www.instagram.com/r_elsarksm"><i class="bi bi-instagram"></i></a>
               <a href="https://linkedin.com/in/raihan-elsar-a315b9334"><i class="bi bi-linkedin"></i></a>
-              <a href="#"><i class="bi bi-github"></i></a>
-              <a href="#"><i class="bi bi-facebook"></i></a>
-              <a href="#"><i class="bi bi-instagram"></i></a>
-              <a href="#"><i class="bi bi-linkedin"></i></a>
 
             </div>
           </div>
