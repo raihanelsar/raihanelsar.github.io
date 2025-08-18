@@ -1,12 +1,11 @@
 <?php
-// Ambil data skills dengan category & subcategory
+// Ambil data skills
 $skills = mysqli_query($koneksi, "SELECT * FROM skills ORDER BY category ASC, subcategory ASC, id ASC");
 
 // Group skills by category & subcategory
 $categories = [];
 while ($r = mysqli_fetch_assoc($skills)) {
     if ($r['category'] === 'Programming') {
-        // Default subcategory jika kosong
         $sub = $r['subcategory'] ?: 'Lainnya';
         $categories['Programming'][$sub][] = $r;
     } else {
@@ -14,7 +13,7 @@ while ($r = mysqli_fetch_assoc($skills)) {
     }
 }
 
-// Urutkan subcategory Programming (Front-End dulu, lalu Back-End, baru Lainnya)
+// Urutkan subcategory Programming
 if (isset($categories['Programming'])) {
     uksort($categories['Programming'], function($a, $b) {
         $order = ['Front-End' => 1, 'Back-End' => 2, 'Lainnya' => 3];
@@ -22,23 +21,43 @@ if (isset($categories['Programming'])) {
     });
 }
 
-// Tentukan icon khusus untuk subcategory
+// Tentukan icon & warna progress bar
 function getSubIcon($subcat) {
     switch ($subcat) {
-        case 'Front-End': return '<i class="bi bi-code-slash text-primary"></i>'; // Bootstrap icon
-        case 'Back-End': return '<i class="bi bi-hdd-stack text-success"></i>'; 
-        default: return '<i class="bi bi-lightning text-warning"></i>'; 
+        case 'Front-End': return '<i class="bi bi-code-slash text-primary"></i>';
+        case 'Back-End': return '<i class="bi bi-hdd-stack text-success"></i>';
+        default: return '<i class="bi bi-lightning text-purple"></i>';
+    }
+}
+
+function getBarColor($cat, $subcat = '') {
+    if ($cat === 'Programming') {
+        switch ($subcat) {
+            case 'Front-End': return 'bg-primary';
+            case 'Back-End': return 'bg-success';
+            default: return 'bg-purple';
+        }
+    } else {
+        return 'bg-warning';
     }
 }
 ?>
 
+<!-- Tambahkan CSS custom -->
+<style>
+.bg-purple {
+  background-color: #6f42c1 !important;
+}
+</style>
+
+<!-- ======= Skills Section ======= -->
 <section id="skills" class="skills section">
   <div class="container section-title" data-aos="fade-up">
     <h2>Skills</h2>
+    <p>Some of the skills that I have mastered in the programming and non-programming fields.</p>
   </div>
 
   <div class="container" data-aos="fade-up" data-aos-delay="100">
-
     <?php if (empty($categories)): ?>
       <p class="text-muted">Belum ada data skills yang ditambahkan.</p>
     <?php else: ?>
@@ -64,7 +83,8 @@ function getSubIcon($subcat) {
                       <i class="val"><?= (int)$s['percentage'] ?>%</i>
                     </span>
                     <div class="progress-bar-wrap">
-                      <div class="progress-bar" role="progressbar" 
+                      <div class="progress-bar progress-bar-striped progress-bar-animated <?= getBarColor($cat, $subcat) ?>" 
+                           role="progressbar" 
                            aria-valuenow="<?= (int)$s['percentage'] ?>" 
                            aria-valuemin="0" aria-valuemax="100" 
                            style="width: <?= (int)$s['percentage'] ?>%"></div>
@@ -80,7 +100,8 @@ function getSubIcon($subcat) {
                       <i class="val"><?= (int)$s['percentage'] ?>%</i>
                     </span>
                     <div class="progress-bar-wrap">
-                      <div class="progress-bar" role="progressbar" 
+                      <div class="progress-bar progress-bar-striped progress-bar-animated <?= getBarColor($cat, $subcat) ?>" 
+                           role="progressbar" 
                            aria-valuenow="<?= (int)$s['percentage'] ?>" 
                            aria-valuemin="0" aria-valuemax="100" 
                            style="width: <?= (int)$s['percentage'] ?>%"></div>
@@ -107,7 +128,8 @@ function getSubIcon($subcat) {
                     <i class="val"><?= (int)$s['percentage'] ?>%</i>
                   </span>
                   <div class="progress-bar-wrap">
-                    <div class="progress-bar" role="progressbar" 
+                    <div class="progress-bar progress-bar-striped progress-bar-animated <?= getBarColor($cat) ?>" 
+                         role="progressbar" 
                          aria-valuenow="<?= (int)$s['percentage'] ?>" 
                          aria-valuemin="0" aria-valuemax="100" 
                          style="width: <?= (int)$s['percentage'] ?>%"></div>
@@ -123,7 +145,8 @@ function getSubIcon($subcat) {
                     <i class="val"><?= (int)$s['percentage'] ?>%</i>
                   </span>
                   <div class="progress-bar-wrap">
-                    <div class="progress-bar" role="progressbar" 
+                    <div class="progress-bar progress-bar-striped progress-bar-animated <?= getBarColor($cat) ?>" 
+                         role="progressbar" 
                          aria-valuenow="<?= (int)$s['percentage'] ?>" 
                          aria-valuemin="0" aria-valuemax="100" 
                          style="width: <?= (int)$s['percentage'] ?>%"></div>
@@ -137,3 +160,4 @@ function getSubIcon($subcat) {
     <?php endif; ?>
   </div>
 </section>
+<!-- End Skills Section -->

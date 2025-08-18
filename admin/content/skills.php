@@ -31,7 +31,7 @@ $skills = mysqli_query($koneksi, "SELECT * FROM skills ORDER BY id DESC");
 </head>
 <body class="p-4">
 <div class="container">
-    <h2>Manage Skills</h2>
+    <h2 class="mb-3">Manage Skills</h2>
 
     <?php if ($msg): ?>
         <div class="alert alert-info"><?= htmlspecialchars($msg) ?></div>
@@ -39,14 +39,14 @@ $skills = mysqli_query($koneksi, "SELECT * FROM skills ORDER BY id DESC");
 
     <a href="?page=tambah-skills" class="btn btn-primary mb-3">+ Add Skill</a>
 
-    <table class="table table-bordered table-striped">
-        <thead>
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-dark">
         <tr>
             <th>Name</th>
             <th>Category</th>
             <th>Subcategory</th>
-            <th>%</th>
-            <th>Action</th>
+            <th>Level</th>
+            <th width="180">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -54,10 +54,16 @@ $skills = mysqli_query($koneksi, "SELECT * FROM skills ORDER BY id DESC");
             <tr>
                 <td><?= htmlspecialchars($row['name']) ?></td>
                 <td><?= htmlspecialchars($row['category']) ?></td>
+                <td><?= $row['subcategory'] ? htmlspecialchars($row['subcategory']) : '-' ?></td>
                 <td>
-                    <?= !empty($row['subcategory']) ? htmlspecialchars($row['subcategory']) : '-' ?>
+                    <div class="progress" style="height:20px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                             role="progressbar"
+                             style="width: <?= intval($row['percentage']) ?>%">
+                            <?= intval($row['percentage']) ?>%
+                        </div>
+                    </div>
                 </td>
-                <td><?= intval($row['percentage']) ?>%</td>
                 <td>
                     <a href="?page=tambah-skills&edit=<?= intval($row['id']) ?>" class="btn btn-sm btn-success">Edit</a>
                     <a href="?page=skills&delete=<?= intval($row['id']) ?>"

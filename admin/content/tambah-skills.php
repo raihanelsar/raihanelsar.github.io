@@ -8,12 +8,10 @@ $editData = null;
 if (isset($_POST['add'])) {
     $name = trim($_POST['name']);
     $category = trim($_POST['category']);
-    $subcategory = isset($_POST['subcategory']) ? trim($_POST['subcategory']) : '';
-    $perc = filter_var($_POST['percentage'], FILTER_VALIDATE_INT, [
-        'options' => ['min_range' => 0, 'max_range' => 100]
-    ]);
+    $subcategory = $_POST['subcategory'] ?? '';
+    $perc = intval($_POST['percentage']);
 
-    if ($name !== '' && $category !== '' && $perc !== false) {
+    if ($name !== '' && $category !== '' && $perc >= 0 && $perc <= 100) {
         $stmt = $koneksi->prepare("INSERT INTO skills (name, category, subcategory, percentage) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("sssi", $name, $category, $subcategory, $perc);
         $stmt->execute();
@@ -30,12 +28,10 @@ if (isset($_POST['update'])) {
     $id = intval($_POST['id']);
     $name = trim($_POST['name']);
     $category = trim($_POST['category']);
-    $subcategory = isset($_POST['subcategory']) ? trim($_POST['subcategory']) : '';
-    $perc = filter_var($_POST['percentage'], FILTER_VALIDATE_INT, [
-        'options' => ['min_range' => 0, 'max_range' => 100]
-    ]);
+    $subcategory = $_POST['subcategory'] ?? '';
+    $perc = intval($_POST['percentage']);
 
-    if ($id > 0 && $name !== '' && $category !== '' && $perc !== false) {
+    if ($id > 0 && $name !== '' && $category !== '' && $perc >= 0 && $perc <= 100) {
         $stmt = $koneksi->prepare("UPDATE skills SET name=?, category=?, subcategory=?, percentage=? WHERE id=?");
         $stmt->bind_param("sssii", $name, $category, $subcategory, $perc, $id);
         $stmt->execute();
@@ -66,24 +62,26 @@ if (isset($_GET['edit'])) {
 </head>
 <body class="p-4">
 <div class="container">
-    <h2><?= $editData ? 'Edit Skill' : 'Add Skill' ?></h2>
+    <h2 class="mb-3"><?= $editData ? 'Edit Skill' : 'Add Skill' ?></h2>
 
     <?php if ($msg): ?>
         <div class="alert alert-danger"><?= htmlspecialchars($msg) ?></div>
     <?php endif; ?>
 
-    <form method="POST" class="row g-2 mb-3">
+    <form method="POST" class="row g-3 mb-3">
         <?php if ($editData): ?>
             <input type="hidden" name="id" value="<?= intval($editData['id']) ?>">
         <?php endif; ?>
 
         <div class="col-md-4">
-            <input type="text" name="name" placeholder="Skill Name" class="form-control"
+            <label class="form-label">Skill Name</label>
+            <input type="text" name="name" class="form-control"
                    value="<?= $editData ? htmlspecialchars($editData['name']) : '' ?>" required>
         </div>
 
         <div class="col-md-3">
-            <select name="category" id="category" class="form-control" required onchange="toggleSubcategory(this.value)">
+            <label class="form-label">Category</label>
+            <select name="category" id="category" class="form-select" required onchange="toggleSubcategory(this.value)">
                 <option value="">-- Select Category --</option>
                 <option value="Programming" <?= ($editData && $editData['category']=="Programming") ? "selected" : "" ?>>Programming</option>
                 <option value="Design" <?= ($editData && $editData['category']=="Design") ? "selected" : "" ?>>Design</option>
@@ -93,19 +91,23 @@ if (isset($_GET['edit'])) {
         </div>
 
         <div class="col-md-3" id="subcategory-wrapper" style="display:none;">
-            <select name="subcategory" id="subcategory" class="form-control">
+            <label class="form-label">Subcategory</label>
+            <select name="subcategory" id="subcategory" class="form-select">
                 <option value="">-- Select Subcategory --</option>
                 <option value="Front-End" <?= ($editData && $editData['subcategory']=="Front-End") ? "selected" : "" ?>>Front-End</option>
                 <option value="Back-End" <?= ($editData && $editData['subcategory']=="Back-End") ? "selected" : "" ?>>Back-End</option>
             </select>
         </div>
 
-        <div class="col-md-2">
-            <input type="number" name="percentage" min="0" max="100" placeholder="%" class="form-control"
-                   value="<?= $editData ? intval($editData['percentage']) : '' ?>" required>
+        <div class="col-md-4">
+            <label class="form-label">Percentage: <span id="percVal"><?= $editData ? intval($editData['percentage']) : 50 ?></span>%</label>
+            <input type="range" name="percentage" min="0" max="100" step="1"
+                   class="form-range"
+                   value="<?= $editData ? intval($editData['percentage']) : 50 ?>"
+                   oninput="document.getElementById('percVal').innerText=this.value">
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-12">
             <?php if ($editData): ?>
                 <button type="submit" name="update" class="btn btn-warning">Update Skill</button>
                 <a href="?page=skills" class="btn btn-secondary">Cancel</a>
@@ -115,23 +117,23 @@ if (isset($_GET['edit'])) {
             <?php endif; ?>
         </div>
     </form>
-
-    <script>
-    function toggleSubcategory(category) {
-        const wrapper = document.getElementById('subcategory-wrapper');
-        if (category === 'Programming') {
-            wrapper.style.display = 'block';
-        } else {
-            wrapper.style.display = 'none';
-            document.getElementById('subcategory').value = '';
-        }
-    }
-
-    // jalankan saat halaman dibuka (edit mode)
-    document.addEventListener("DOMContentLoaded", function(){
-        toggleSubcategory(document.getElementById('category').value);
-    });
-    </script>
 </div>
+
+<script>
+function toggleSubcategory(category) {
+    const wrapper = document.getElementById('subcategory-wrapper');
+    if (category === 'Programming') {
+        wrapper.style.display = 'block';
+    } else {
+        wrapper.style.display = 'none';
+        document.getElementById('subcategory').value = '';
+    }
+}
+
+// jalankan saat halaman dibuka (edit mode)
+document.addEventListener("DOMContentLoaded", function(){
+    toggleSubcategory(document.getElementById('category').value);
+});
+</script>
 </body>
 </html>

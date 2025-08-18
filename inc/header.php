@@ -11,6 +11,7 @@
       $menus = [
         "home"      => ["icon" => "bi bi-house", "label" => "Home"],
         "about"     => ["icon" => "bi bi-person", "label" => "About"],
+        "skills"     => ["icon" => "bi bi-person-gear", "label" => "Skills"],
         "resume"    => ["icon" => "bi bi-file-earmark-text", "label" => "Resume"],
         "portfolio" => ["icon" => "bi bi-images", "label" => "Portfolio"],
         "services"  => ["icon" => "bi bi-hdd-stack", "label" => "Services"],
