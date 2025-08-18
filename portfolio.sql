@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2025 at 01:53 PM
+-- Generation Time: Aug 18, 2025 at 07:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -77,23 +77,23 @@ INSERT INTO `contact` (`id`, `address`, `phone`, `email`, `map_embed`) VALUES
 
 CREATE TABLE `portfolio` (
   `id` int(11) NOT NULL,
-  `category` enum('app','card','web') DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `category` enum('app','card','web') NOT NULL,
+  `description` text NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `link` varchar(255) DEFAULT NULL
+  `link` varchar(255) DEFAULT NULL,
+  `tags` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `portfolio`
 --
 
-INSERT INTO `portfolio` (`id`, `category`, `title`, `description`, `image`, `link`) VALUES
-(1, 'app', 'BMI Calculator', 'A BMI (Body Mass Index) calculator is a tool used to calculate a person\'s body mass index. This calculation is based on weight and height to provide an estimate of body fat. The BMI calculation can help determine a person\'s weight category, such as underweight, ideal weight, overweight, or obese.', '1755306682_calculator.png', 'https://kalkulatorbmi.vercel.app/'),
-(2, 'web', 'Dapoer R2', 'Landing Page Dapoer R2', '1755307553_landingpage.png', 'https://dapurr2landingpage.vercel.app/'),
-(3, 'web', 'Re Shoot', 'Landing Page Photography', '1755308371_REShoot.png', 'https://reshootproject.vercel.app/'),
-(5, 'card', 'Nexcent Landing Page', 'Nexcent Landing Page', '1755309212_image_2025-08-16_085330826.png', 'https://portofolio-angkatan3-2025.vercel.app/'),
-(6, 'app', 'Music Player', 'Bye Bye Bye\r\nDeadpool & Wolverine', '1755309644_deadpool.jpg', 'https://musicplayerrek.vercel.app');
+INSERT INTO `portfolio` (`id`, `title`, `category`, `description`, `image`, `link`, `tags`, `created_at`, `updated_at`) VALUES
+(1, 'Music Player', 'app', 'Deadpool and Wolverine\r\nOST Bye Bye Bye', '1755533704_deadpool.jpg', 'https://musicplayerrek.vercel.app', NULL, '2025-08-18 16:15:04', '2025-08-18 16:15:04'),
+(2, 'Dapoer R2', 'web', 'Landing Page Dapoer R2', '1755537335_landingpage.png', 'https://dapurr2landingpage.vercel.app/', 'html, css, js', '2025-08-18 17:15:35', '2025-08-18 17:15:35');
 
 -- --------------------------------------------------------
 
@@ -201,7 +201,7 @@ INSERT INTO `skills` (`id`, `name`, `category`, `percentage`, `subcategory`) VAL
 (17, 'PHP', 'Programming', 75, 'Back-End'),
 (18, 'Python', 'Programming', 60, 'Back-End'),
 (19, 'C', 'Programming', 65, ''),
-(20, 'C++', 'Programming', 65, ''),
+(20, 'C++', 'Programming', 75, ''),
 (21, 'Teamwork', 'Soft Skills', 100, '');
 
 -- --------------------------------------------------------
@@ -327,7 +327,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `portfolio`
 --
 ALTER TABLE `portfolio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `resume`
