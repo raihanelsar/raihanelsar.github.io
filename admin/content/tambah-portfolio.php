@@ -1,113 +1,122 @@
 <?php
 include 'koneksi.php';
 
-$msg = "";
+// Cek mode edit
+$editData = null;
+if (isset($_GET['edit'])) {
+    $id = intval($_GET['edit']);
+    $stmt = mysqli_prepare($koneksi, "SELECT * FROM portfolio WHERE id=?");
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $editData = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
+}
 
-// =======================
-// Ambil daftar kategori dari ENUM
-// =======================
-$catQ = mysqli_query($koneksi, "SHOW COLUMNS FROM portfolio LIKE 'category'");
-$row = mysqli_fetch_assoc($catQ);
-preg_match("/^enum\('(.*)'\)$/", $row['Type'], $matches);
-$categories = explode("','", $matches[1]);
-
-// =======================
-// Proses form submit
-// =======================
+// Proses simpan/update
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $category    = mysqli_real_escape_string($koneksi, trim($_POST['category']));
-    $title       = mysqli_real_escape_string($koneksi, trim($_POST['title']));
-    $description = mysqli_real_escape_string($koneksi, trim($_POST['description']));
-    $link        = mysqli_real_escape_string($koneksi, trim($_POST['link']));
-    $tags        = mysqli_real_escape_string($koneksi, trim($_POST['tags']));
-
-    $img = null;
+    $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $category = $_POST['category'];
+    $tags = $_POST['tags'];
+    $link = $_POST['link'];
 
     // Upload gambar
+    $fileName = $editData['image'] ?? '';
     if (!empty($_FILES['image']['name'])) {
-        $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-        $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $uploadDir = __DIR__ . "/../uploads/";
+        if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 
-        if (in_array($ext, $allowed)) {
-            $img = time() . "_" . preg_replace('/[^a-zA-Z0-9\._-]/', '', $_FILES['image']['name']);
-            if (!is_dir("uploads")) {
-                mkdir("uploads", 0777, true);
+        $fileName = time() . "_" . basename($_FILES['image']['name']);
+        $target = $uploadDir . $fileName;
+
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+            // hapus gambar lama
+            if ($id > 0 && !empty($editData['image']) && file_exists($uploadDir . $editData['image'])) {
+                unlink($uploadDir . $editData['image']);
             }
-            move_uploaded_file($_FILES['image']['tmp_name'], "uploads/" . $img);
-        } else {
-            $msg = "❌ Format file tidak diizinkan!";
         }
     }
 
-    // Simpan ke database
-    if ($img) {
-        $sql = "INSERT INTO portfolio (category, title, description, image, link, tags) 
-                VALUES ('$category', '$title', '$description', '$img', '$link', '$tags')";
-        if (mysqli_query($koneksi, $sql)) {
-            $msg = "✅ Portfolio berhasil ditambahkan!";
-        } else {
-            $msg = "❌ Gagal menambahkan: " . mysqli_error($koneksi);
-        }
+    if ($id > 0) {
+        // update
+        $stmt = mysqli_prepare($koneksi, "UPDATE portfolio SET title=?, description=?, category=?, tags=?, link=?, image=? WHERE id=?");
+        mysqli_stmt_bind_param($stmt, "ssssssi", $title, $description, $category, $tags, $link, $fileName, $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        header("Location: ?page=portfolio&msg=updated");
+        exit;
+    } else {
+        // insert
+        $stmt = mysqli_prepare($koneksi, "INSERT INTO portfolio (title, description, category, tags, link, image) VALUES (?,?,?,?,?,?)");
+        mysqli_stmt_bind_param($stmt, "ssssss", $title, $description, $category, $tags, $link, $fileName);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        header("Location: ?page=portfolio&msg=added");
+        exit;
     }
 }
 ?>
 <!doctype html>
-<html>
+<html lang="id">
+
 <head>
     <meta charset="utf-8">
-    <title>Tambah Portfolio</title>
+    <title><?= $editData ? "Edit" : "Tambah" ?> Portfolio</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
-<body class="p-4 bg-light">
-<div class="container">
-    <h1 class="mb-4">Tambah Portfolio</h1>
 
-    <?php if ($msg): ?>
-        <div class="alert alert-info"><?= $msg ?></div>
-    <?php endif; ?>
+<body class="bg-light">
+    <div class="container py-4">
+        <h1 class="mb-4"><?= $editData ? "✏ Edit" : "+ Tambah" ?> Portfolio</h1>
 
-    <form method="post" enctype="multipart/form-data" class="row g-3">
-        <div class="col-md-4">
-            <label class="form-label">Kategori</label>
-            <select name="category" class="form-select" required>
-                <option value="">-- Pilih Kategori --</option>
-                <?php foreach ($categories as $cat): ?>
-                    <option value="<?= htmlspecialchars($cat) ?>"><?= ucfirst($cat) ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+        <form method="post" enctype="multipart/form-data" class="card p-3 shadow-sm">
+            <?php if ($editData): ?>
+                <input type="hidden" name="id" value="<?= $editData['id'] ?>">
+            <?php endif; ?>
 
-        <div class="col-md-8">
-            <label class="form-label">Judul</label>
-            <input type="text" name="title" class="form-control" required>
-        </div>
-
-        <div class="col-md-12">
-            <label class="form-label">Deskripsi</label>
-            <textarea name="description" class="form-control" rows="3"></textarea>
-        </div>
-
-        <div class="col-md-6">
-            <label class="form-label">Gambar</label>
-            <input type="file" name="image" class="form-control" required>
-        </div>
-
-        <div class="col-md-6">
-            <label class="form-label">Link Eksternal (opsional)</label>
-            <input type="url" name="link" class="form-control" placeholder="https://...">
-        </div>
-
-        <div class="col-md-12">
-            <label class="form-label">Tags</label>
-            <input type="text" name="tags" class="form-control" placeholder="Contoh: php, javascript, uiux">
-            <div class="form-text">Pisahkan dengan koma (,)</div>
-        </div>
-
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">💾 Simpan</button>
-            <a href="?page=portfolio" class="btn btn-secondary">⬅ Kembali</a>
-        </div>
-    </form>
-</div>
+            <div class="mb-3">
+                <label>Judul</label>
+                <input type="text" name="title" class="form-control" required
+                    value="<?= htmlspecialchars($editData['title'] ?? '') ?>">
+            </div>
+            <div class="mb-3">
+                <label>Deskripsi</label>
+                <textarea name="description" class="form-control"
+                    required><?= htmlspecialchars($editData['description'] ?? '') ?></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Kategori</label>
+                <select name="category" class="form-control" required>
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="app" <?= ($editData['category'] ?? '') === 'app' ? 'selected' : '' ?>>App</option>
+                    <option value="card" <?= ($editData['category'] ?? '') === 'card' ? 'selected' : '' ?>>Card</option>
+                    <option value="web" <?= ($editData['category'] ?? '') === 'web' ? 'selected' : '' ?>>Web</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label>Tags (pisahkan dengan koma)</label>
+                <input type="text" name="tags" class="form-control" value="<?= htmlspecialchars($editData['tags'] ?? '') ?>">
+            </div>
+            <div class="mb-3">
+                <label>Link</label>
+                <input type="url" name="link" class="form-control" value="<?= htmlspecialchars($editData['link'] ?? '') ?>">
+            </div>
+            <div class="mb-3">
+                <label>Gambar</label>
+                <?php if (!empty($editData['image'])): ?>
+                    <div class="mb-2">
+                        <img src="uploads/<?= htmlspecialchars($editData['image']) ?>" style="height:60px">
+                    </div>
+                <?php endif; ?>
+                <input type="file" name="image" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary"><?= $editData ? "Update" : "Simpan" ?></button>
+            <a href="?page=portfolio" class="btn btn-secondary">Kembali</a>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

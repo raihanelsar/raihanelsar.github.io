@@ -19,7 +19,7 @@ if (empty($_SESSION['ID_USER'])) {
   <meta content="" name="keywords">
 
   <?php include 'inc/css.php' ?>
-
+  <script src="assets/js/tagify/tagify.css"></script>
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -61,6 +61,7 @@ if (empty($_SESSION['ID_USER'])) {
 
   <!-- Vendor JS Files -->
   <?php include 'inc/js.php' ?>
+  <script src="assets/js/tagify/tagify.js"></script>
 
 </body>
 

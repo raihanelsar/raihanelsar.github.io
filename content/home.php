@@ -1,11 +1,11 @@
-<!-- Hero Section (TETAP LIGHT MODE) -->
+<!-- Hero Section -->
 <section id="hero" class="hero section light-background">
   <img src="assets/img/hero-bg.jpg" alt="">
   <div class="container" data-aos="zoom-out">
     <div class="row justify-content-center">
       <div class="col-lg-9">
         <h2>Raihan Elsar</h2>
-        <p>I'm <span class="typed" data-typed-items="Developer, Photographer">Developer</span></p>
+        <p>I'm <span class="typed" data-typed-items="Developer, Photographer"></span></p>
         <div class="social-links">
           <a href="https://github.com/raihanelsar"><i class="bi bi-github"></i></a>
           <a href="#"><i class="bi bi-facebook"></i></a>
