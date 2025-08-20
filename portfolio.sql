@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2025 at 07:21 PM
+-- Generation Time: Aug 20, 2025 at 09:18 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,6 +32,7 @@ CREATE TABLE `about` (
   `title` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
+  `pdf` varchar(255) NOT NULL,
   `birthday` date DEFAULT NULL,
   `website` varchar(255) DEFAULT NULL,
   `phone` varchar(50) DEFAULT NULL,
@@ -45,8 +46,8 @@ CREATE TABLE `about` (
 -- Dumping data for table `about`
 --
 
-INSERT INTO `about` (`id`, `title`, `description`, `image`, `birthday`, `website`, `phone`, `city`, `age`, `degree`, `email`) VALUES
-(1, 'Raihan Elsar Kusuma, S.T., M.Pd.', 'Raihan Elsar is a Bachelor of Computer Engineering graduate from Telkom University who is currently pursuing a Masters in Educational Technology at Muhammadiyah University Jakarta.', 'up_68a2d9652d059.png', '2000-01-25', 'raihanelsar.github.io', '+62 813 6338 2729', 'Jakarta', 25, 'Master', 'raihan.elsar25@gmail.com');
+INSERT INTO `about` (`id`, `title`, `description`, `image`, `pdf`, `birthday`, `website`, `phone`, `city`, `age`, `degree`, `email`) VALUES
+(1, 'Raihan Elsar Kusuma, S.T., M.Pd.', 'Raihan Elsar is a Bachelor of Computer Engineering graduate from Telkom University who is currently pursuing a Masters in Educational Technology at Muhammadiyah University Jakarta.', 'up_68a3e9bd8242d.png', 'up_68a51d5c4400e.pdf', '2000-01-25', 'raihanelsar.github.io', '+62 813 6338 2729', 'Jakarta', 25, 'Master', 'raihan.elsar25@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -92,8 +93,11 @@ CREATE TABLE `portfolio` (
 --
 
 INSERT INTO `portfolio` (`id`, `title`, `category`, `description`, `image`, `link`, `tags`, `created_at`, `updated_at`) VALUES
-(1, 'Music Player', 'app', 'Deadpool and Wolverine\r\nOST Bye Bye Bye', '1755533704_deadpool.jpg', 'https://musicplayerrek.vercel.app', NULL, '2025-08-18 16:15:04', '2025-08-18 16:15:04'),
-(2, 'Dapoer R2', 'web', 'Landing Page Dapoer R2', '1755537335_landingpage.png', 'https://dapurr2landingpage.vercel.app/', 'html, css, js', '2025-08-18 17:15:35', '2025-08-18 17:15:35');
+(1, 'Music Player', 'app', 'Deadpool and Wolverine\r\nOST Bye Bye Bye', '1755582286_deadpool.jpg', 'https://musicplayerrek.vercel.app', 'html, css, js', '2025-08-18 16:15:04', '2025-08-19 05:45:10'),
+(2, 'Dapoer R2', 'web', 'Landing Page Dapoer R2', '1755582277_landingpage.png', 'https://dapurr2landingpage.vercel.app/', 'html, css, js', '2025-08-18 17:15:35', '2025-08-19 05:44:37'),
+(3, 'RE Shoot', 'web', 'Landing Page Photography', '1755582557_reshoot.png', 'https://reshootproject.vercel.app/', 'html, css, js', '2025-08-19 05:49:17', '2025-08-19 05:49:17'),
+(4, 'Nexcent', 'web', 'Tugas 1 Landing Page ', '1755582617_nexcent.png', 'https://portofolio-angkatan3-2025.vercel.app/', 'html, css, js', '2025-08-19 05:50:17', '2025-08-19 05:50:17'),
+(5, 'BMI Calculator', 'app', 'BMI is a measurement of a person\'s leanness or corpulence based on their height and weight, and is intended to quantify tissue mass. It is widely used as a general indicator of whether a person has a healthy body weight for their height. Specifically, the value obtained from the calculation of BMI is used to categorize whether a person is underweight, normal weight, overweight, or obese depending on what range the value falls between. These ranges of BMI vary based on factors such as region and age, and are sometimes further divided into subcategories such as severely underweight or very severely obese. Being overweight or underweight can have significant health effects, so while BMI is an imperfect measure of healthy body weight, it is a useful indicator of whether any additional testing or action is required. Refer to the table below to see the different categories based on BMI that are used by the calculator.', '1755671962_calculator.png', 'https://kalkulatorbmi.vercel.app/', 'html, css, js', '2025-08-19 05:51:20', '2025-08-20 06:39:22');
 
 -- --------------------------------------------------------
 
@@ -327,7 +331,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `portfolio`
 --
 ALTER TABLE `portfolio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `resume`
