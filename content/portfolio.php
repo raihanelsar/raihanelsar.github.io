@@ -1,6 +1,6 @@
 <?php
 // Ambil max 3 portfolio terbaru
-$portfolioQ = mysqli_query($koneksi, "SELECT * FROM portfolio ORDER BY id DESC");
+$portfolioQ = mysqli_query($koneksi, "SELECT * FROM portfolio ORDER BY id DESC LIMIT 3");
 
 // Ambil daftar kategori unik
 $catQ = mysqli_query($koneksi, "SELECT DISTINCT category FROM portfolio ORDER BY category ASC");
@@ -94,7 +94,7 @@ function slugify($text)
 
       <!-- Tombol Lihat Semua -->
       <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="300">
-        <a href="portfolio-detail.php" class="btn btn-outline-primary">
+        <a href="?page=portfolio-detail" class="btn btn-outline-primary">
           📂 Lihat Semua Portfolio
         </a>
       </div>
