@@ -31,6 +31,15 @@ $rowAbout = mysqli_fetch_assoc($queryAbout);
             </ul>
           </div>
         </div>
+        <!-- Tombol PDF -->
+        <?php if (!empty($rowAbout['pdf'])): ?>
+          <div class="mt-4">
+            <a href="admin/uploads/<?= htmlspecialchars($rowAbout['pdf']) ?>" class="btn btn-primary btn-lg shadow-sm"
+              target="_blank">
+              Download PDF
+            </a>
+          </div>
+        <?php endif; ?>
       </div>
     </div>
   </div>

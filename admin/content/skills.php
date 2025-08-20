@@ -21,6 +21,23 @@ if (isset($_GET['delete'])) {
 
 // ===== GET ALL SKILLS =====
 $skills = mysqli_query($koneksi, "SELECT * FROM skills ORDER BY id DESC");
+
+// ===== ICONS MAPPING =====
+// Pakai Bootstrap Icons dan Font Awesome
+$icons = [
+    'html' => '<i class="fa-brands fa-html5 text-danger"></i>',
+    'css' => '<i class="fa-brands fa-css3-alt text-primary"></i>',
+    'javascript' => '<i class="fa-brands fa-js text-warning"></i>',
+    'bootstrap' => '<i class="fa-brands fa-bootstrap text-purple"></i>',
+    'php' => '<i class="fa-brands fa-php text-primary"></i>',
+    'laravel' => '<i class="fa-brands fa-laravel text-danger"></i>',
+    'react' => '<i class="fa-brands fa-react text-info"></i>',
+    'python' => '<i class="fa-brands fa-python text-warning"></i>',
+    'mysql' => '<i class="fa-solid fa-database text-secondary"></i>',
+    'git' => '<i class="fa-brands fa-git-alt text-danger"></i>',
+    'github' => '<i class="fa-brands fa-github text-dark"></i>',
+    'default' => '<i class="fa-solid fa-code text-secondary"></i>'
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +46,7 @@ $skills = mysqli_query($koneksi, "SELECT * FROM skills ORDER BY id DESC");
     <meta charset="UTF-8">
     <title>Manage Skills</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
             background-color: #f8f9fa;
@@ -54,6 +72,11 @@ $skills = mysqli_query($koneksi, "SELECT * FROM skills ORDER BY id DESC");
         table td {
             vertical-align: middle;
             text-align: center;
+        }
+
+        .skill-icon {
+            font-size: 20px;
+            margin-right: 6px;
         }
     </style>
 </head>
@@ -88,8 +111,15 @@ $skills = mysqli_query($koneksi, "SELECT * FROM skills ORDER BY id DESC");
                 <tbody>
                     <?php if (mysqli_num_rows($skills) > 0): ?>
                         <?php while ($row = mysqli_fetch_assoc($skills)): ?>
+                            <?php
+                            $nameLower = strtolower($row['name']);
+                            $icon = $icons[$nameLower] ?? $icons['default'];
+                            ?>
                             <tr>
-                                <td class="fw-semibold"><?= htmlspecialchars($row['name']) ?></td>
+                                <td class="fw-semibold text-start">
+                                    <span class="skill-icon"><?= $icon ?></span>
+                                    <?= htmlspecialchars($row['name']) ?>
+                                </td>
                                 <td><?= htmlspecialchars($row['category']) ?></td>
                                 <td><?= $row['subcategory'] ? htmlspecialchars($row['subcategory']) : '<span class="text-muted">-</span>' ?>
                                 </td>
