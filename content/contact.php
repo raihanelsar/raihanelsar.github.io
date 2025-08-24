@@ -1,6 +1,10 @@
 <?php
-// Fetch contact data
-$data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM contact LIMIT 1"));
+// Connect to MySQL
+$koneksi = mysqli_connect("localhost", "root", "", "portfolio");
+
+if (!$koneksi) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -10,20 +14,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = mysqli_real_escape_string($koneksi, $_POST['message'] ?? '');
 
     if ($name && $email && $message) {
-        // Save to database
         $sql = "INSERT INTO messages (name, email, subject, message, created_at) 
                 VALUES ('$name', '$email', '$subject', '$message', NOW())";
-        $saved = mysqli_query($koneksi, $sql);
-
-        if ($saved) {
-            $success = "✅ Your message has been saved successfully!";
+        if (mysqli_query($koneksi, $sql)) {
+            $success = "✅ Message saved successfully!";
         } else {
-            $error = "❌ Failed to save message. Please try again.";
+            $error = "❌ Error: " . mysqli_error($koneksi);
         }
     } else {
-        $error = "⚠️ Please fill in all required fields.";
+        $error = "⚠️ Please fill all required fields.";
     }
 }
+
+// Fetch contact data
+$sql   = "SELECT * FROM contact LIMIT 1";
+$query = mysqli_query($koneksi, $sql);
+$data  = mysqli_fetch_assoc($query);
 ?>
 
 <section id="contact" class="contact section">
@@ -39,6 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <!-- Contact Info -->
       <div class="col-lg-5 d-flex flex-column justify-content-center">
+        
+        <!-- Address -->
         <div class="info-item d-flex">
           <i class="bi bi-geo-alt flex-shrink-0"></i>
           <div>
@@ -46,6 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p><?= htmlspecialchars($data['address'] ?? '') ?></p>
           </div>
         </div>
+
+        <!-- Phone -->
         <div class="info-item d-flex">
           <i class="bi bi-telephone flex-shrink-0"></i>
           <div>
@@ -53,6 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p><?= htmlspecialchars($data['phone'] ?? '') ?></p>
           </div>
         </div>
+
+        <!-- Email -->
         <div class="info-item d-flex">
           <i class="bi bi-envelope flex-shrink-0"></i>
           <div>
@@ -70,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="alert alert-danger"><?= $error ?></div>
         <?php endif; ?>
 
-        <form method="post" class="php-email-form">
+        <form method="POST" action="?page=contact">
           <div class="row">
             <div class="col-md-6 form-group">
               <input type="text" name="name" class="form-control" placeholder="Your Name" required>
@@ -90,7 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
         </form>
       </div>
-
     </div>
 
     <!-- Map -->
