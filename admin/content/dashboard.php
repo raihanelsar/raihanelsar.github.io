@@ -106,6 +106,16 @@
           </div>
         </a>
       </div>
+      <!-- Messages -->
+      <div class="col-md-4">
+        <a href="?page=tambah-messages" class="text-decoration-none text-dark">
+          <div class="card p-4 text-center dashboard-card">
+            <div class="icon-circle bg-dark"><i class="bi bi-envelope-fill"></i></div>
+            <h5 class="fw-bold">Messages</h5>
+            <p class="text-muted">Manage messages</p>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </body>

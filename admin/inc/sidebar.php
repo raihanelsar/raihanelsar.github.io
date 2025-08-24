@@ -24,6 +24,7 @@
         <li><a href="?page=portfolio"><i class="bi bi-circle"></i> Portfolio</a></li>
         <li><a href="?page=services"><i class="bi bi-circle"></i> Services</a></li>
         <li><a href="?page=contact"><i class="bi bi-circle"></i> Contact</a></li>
+        <li><a href="?page=messages"><i class="bi bi-circle"></i> Messages</a></li>
       </ul>
     </li>
 
