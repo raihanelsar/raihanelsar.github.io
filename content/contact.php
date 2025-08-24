@@ -16,12 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $saved = mysqli_query($koneksi, $sql);
 
         if ($saved) {
-            $success = "Your message has been sent successfully!";
+            $success = "✅ Your message has been saved successfully!";
         } else {
-            $error = "Failed to send message. Please try again.";
+            $error = "❌ Failed to save message. Please try again.";
         }
     } else {
-        $error = "Please fill in all required fields.";
+        $error = "⚠️ Please fill in all required fields.";
     }
 }
 ?>
@@ -39,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <!-- Contact Info -->
       <div class="col-lg-5 d-flex flex-column justify-content-center">
-
         <div class="info-item d-flex">
           <i class="bi bi-geo-alt flex-shrink-0"></i>
           <div>
@@ -47,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p><?= htmlspecialchars($data['address'] ?? '') ?></p>
           </div>
         </div>
-
         <div class="info-item d-flex">
           <i class="bi bi-telephone flex-shrink-0"></i>
           <div>
@@ -55,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p><?= htmlspecialchars($data['phone'] ?? '') ?></p>
           </div>
         </div>
-
         <div class="info-item d-flex">
           <i class="bi bi-envelope flex-shrink-0"></i>
           <div>
@@ -63,7 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p><?= htmlspecialchars($data['email'] ?? '') ?></p>
           </div>
         </div>
-
       </div>
 
       <!-- Contact Form -->
@@ -89,7 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="form-group mt-3">
             <textarea name="message" class="form-control" rows="5" placeholder="Message" required></textarea>
           </div>
-          <div class="text-center mt-3"><button type="submit">Send Message</button></div>
+          <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Save Message</button>
+          </div>
         </form>
       </div>
 
