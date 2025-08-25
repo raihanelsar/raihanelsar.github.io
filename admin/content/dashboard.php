@@ -1,6 +1,7 @@
 <?php include 'koneksi.php'; ?>
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,14 +12,17 @@
     body {
       background: #f8f9fa;
     }
+
     .dashboard-card {
       transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
     }
+
     .dashboard-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     }
+
     .icon-circle {
       width: 60px;
       height: 60px;
@@ -32,6 +36,7 @@
     }
   </style>
 </head>
+
 <body class="p-4">
   <div class="container">
     <h1 class="mb-5 text-center fw-bold">Admin Dashboard</h1>
@@ -108,7 +113,7 @@
       </div>
       <!-- Messages -->
       <div class="col-md-4">
-        <a href="?page=tambah-messages" class="text-decoration-none text-dark">
+        <a href="?page=messages" class="text-decoration-none text-dark">
           <div class="card p-4 text-center dashboard-card">
             <div class="icon-circle bg-dark"><i class="bi bi-envelope-fill"></i></div>
             <h5 class="fw-bold">Messages</h5>
@@ -119,4 +124,5 @@
     </div>
   </div>
 </body>
+
 </html>

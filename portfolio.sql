@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2025 at 02:17 AM
+-- Generation Time: Aug 25, 2025 at 03:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,15 +39,16 @@ CREATE TABLE `about` (
   `city` varchar(100) DEFAULT NULL,
   `age` int(11) DEFAULT NULL,
   `degree` varchar(100) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL
+  `email` varchar(255) DEFAULT NULL,
+  `cv` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `about`
 --
 
-INSERT INTO `about` (`id`, `title`, `description`, `image`, `pdf`, `birthday`, `website`, `phone`, `city`, `age`, `degree`, `email`) VALUES
-(1, 'Raihan Elsar Kusuma, S.T., M.Pd.', 'Raihan Elsar is a Bachelor of Computer Engineering graduate from Telkom University who is currently pursuing a Masters in Educational Technology at Muhammadiyah University Jakarta.', 'up_68a3e9bd8242d.png', 'up_68a51d5c4400e.pdf', '2000-01-25', 'raihanelsar.github.io', '+62 813 6338 2729', 'Jakarta', 25, 'Master', 'raihan.elsar25@gmail.com');
+INSERT INTO `about` (`id`, `title`, `description`, `image`, `pdf`, `birthday`, `website`, `phone`, `city`, `age`, `degree`, `email`, `cv`) VALUES
+(1, 'Raihan Elsar Kusuma, S.T.', 'Raihan Elsar is a Bachelor of Computer Engineering graduate from Telkom University who is currently pursuing a Masters in Educational Technology at Muhammadiyah University Jakarta.', 'up_68a3e9bd8242d.png', 'up_68a51d5c4400e.pdf', '2000-01-25', 'raihanelsar.github.io', '+62 813 6338 2729', 'Jakarta', 25, 'Master', 'raihan.elsar25@gmail.com', 'up_68abbb4e16ce8.pdf');
 
 -- --------------------------------------------------------
 
@@ -249,10 +250,10 @@ CREATE TABLE `statistics` (
 --
 
 INSERT INTO `statistics` (`id`, `icon`, `value`, `label`) VALUES
-(1, 'bi bi-journal-code', 7, 'Projects'),
-(3, 'bi bi-person-fill', 5, 'Hard Workers'),
-(4, 'bi bi-emoji-smile', 5, 'Happy Clients'),
-(6, 'bi bi-headset', 5, 'Hours of Support');
+(1, 'bi bi-journal-code', 5, 'Projects'),
+(3, 'bi bi-person-fill', 2, 'Organizations'),
+(4, 'bi bi-person-badge-fill', 1, 'Experience'),
+(6, 'bi bi-patch-check-fill', 2, 'Certifications');
 
 -- --------------------------------------------------------
 
