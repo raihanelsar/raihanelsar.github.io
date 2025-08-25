@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2025 at 03:38 AM
+-- Generation Time: Aug 25, 2025 at 04:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,7 +48,7 @@ CREATE TABLE `about` (
 --
 
 INSERT INTO `about` (`id`, `title`, `description`, `image`, `pdf`, `birthday`, `website`, `phone`, `city`, `age`, `degree`, `email`, `cv`) VALUES
-(1, 'Raihan Elsar Kusuma, S.T.', 'Raihan Elsar is a Bachelor of Computer Engineering graduate from Telkom University who is currently pursuing a Masters in Educational Technology at Muhammadiyah University Jakarta.', 'up_68a3e9bd8242d.png', 'up_68a51d5c4400e.pdf', '2000-01-25', 'raihanelsar.github.io', '+62 813 6338 2729', 'Jakarta', 25, 'Master', 'raihan.elsar25@gmail.com', 'up_68abbb4e16ce8.pdf');
+(1, 'Raihan Elsar Kusuma, S.T.', 'Raihan Elsar is a Bachelor of Computer Engineering graduate from Telkom University who is currently pursuing a Masters in Educational Technology at Muhammadiyah University Jakarta.', 'up_68abccb88616d.png', 'up_68a51d5c4400e.pdf', '2000-01-25', 'raihanelsar.github.io', '+62 813 6338 2729', 'Jakarta', 25, 'Master', 'raihan.elsar25@gmail.com', 'up_68abbb4e16ce8.pdf');
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,8 @@ CREATE TABLE `messages` (
 INSERT INTO `messages` (`id`, `name`, `email`, `subject`, `message`, `created_at`) VALUES
 (1, 'Elsar', 'Elsar@gmail.com', 'Halo', 'Sangat Bagus dan Sangat Interaktif', '2025-08-24 14:52:30'),
 (2, 'Elsar', 'Elsar@gmail.com', 'Halo', 'Sangat Bagus dan Sangat Interaktif', '2025-08-24 14:54:09'),
-(3, 'Elsar', 'el@gmail.com', 'Halo', 'Web yang sangat menarik dan friendly', '2025-08-24 14:54:40');
+(3, 'Elsar', 'el@gmail.com', 'Halo', 'Web yang sangat menarik dan friendly', '2025-08-24 14:54:40'),
+(4, 'ayah umar', 'ayahumar@bapak.com', 'apaansik ganggu aja', 'gw bingung dah tua soalnya', '2025-08-25 01:54:18');
 
 -- --------------------------------------------------------
 
@@ -361,7 +362,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `portfolio`

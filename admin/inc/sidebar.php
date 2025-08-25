@@ -13,7 +13,7 @@
     <li class="nav-item">
       <a class="nav-link collapsed d-flex align-items-center gap-2 px-3 py-2 rounded" 
          data-bs-toggle="collapse" href="#components-nav" aria-expanded="false">
-        <i class="bi bi-menu-button-wide"></i><span>Components</span>
+        <i class="bi bi-menu-button-wide"></i><span>Pages</span>
         <i class="bi bi-chevron-down ms-auto toggle-icon"></i>
       </a>
       <ul id="components-nav" class="nav-content collapse list-unstyled ms-4">

@@ -4,8 +4,8 @@
 
     <!-- Logo -->
     <a href="index.php" class="logo d-flex align-items-center text-decoration-none">
-      <img src="assets/img/logo.png" alt="Logo" class="me-2" style="height:32px;">
-      <span class="d-none d-lg-block fw-bold text-dark">NiceAdmin</span>
+      <img src="../assets/img/favicon.ico" alt="Logo" class="me-2" style="height:32px;">
+      <span class="d-none d-lg-block fw-bold text-dark">RE Admin</span>
     </a>
 
     <!-- Sidebar Toggle -->
@@ -58,7 +58,7 @@
         <!-- Profile -->
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" width="32" height="32">
+            <img src="../assets/img/raihanelsar.png" alt="Profile" class="rounded-circle" width="32" height="32">
             <span class="d-none d-md-block dropdown-toggle ps-2">
               <?php echo isset($_SESSION['NAME']) ? $_SESSION['NAME'] : 'Guest'; ?>
             </span>
